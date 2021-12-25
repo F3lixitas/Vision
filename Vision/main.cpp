@@ -18,6 +18,7 @@ int main() {
 
 	while (!win.shouldClose()) {
 		win.proc();
+//todo create a global sleep method
 #ifdef _WIN32
 		Sleep(1);
 #endif

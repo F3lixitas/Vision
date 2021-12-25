@@ -14,6 +14,9 @@ This is the window class prototype file.
 
 #ifdef _WIN32
 	#include <Windows.h>
+#elif defined __linux__
+	#include <X11/Xlib.h>
+	#include <unistd.h>
 #endif
 
 //todo : put that in a general header
@@ -23,6 +26,13 @@ class ViWindow {
 private:
 #ifdef _WIN32
 	HWND _hwnd, _label;
+#elif defined __linux__
+	Display* 	_display;
+	Window		_window, _label;
+	GC			_windowGC, _labelGC;
+	Screen*		_screen;
+	int 		_screenId;
+	XEvent		_event;
 #endif
 
 	bool _active = false;
@@ -37,6 +47,8 @@ public:
 	void onDestroy();
 #ifdef _WIN32
 	void setText(LPCWSTR text);
+#elif defined __linux__
+	void setText(const char* t);
 #endif
 };
 
