@@ -1,6 +1,8 @@
 Debug
 x64
 .vs
+info
+Makefile
 
 # Prerequisites
 *.d
