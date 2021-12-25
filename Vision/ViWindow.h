@@ -21,11 +21,12 @@ This is the window class prototype file.
 
 //todo : put that in a general header
 #include "ViError.h"
+#include "ViLabel.h"
 
 class ViWindow {
 private:
 #ifdef _WIN32
-	HWND _hwnd, _label;
+	HWND _hwnd;
 #elif defined __linux__
 	Display* 	_display;
 	Window		_window, _label;
@@ -34,7 +35,7 @@ private:
 	int 		_screenId;
 	XEvent		_event;
 #endif
-
+	ViLabel _label1;
 	bool _active = false;
 	ViErrorType init();
 public:
@@ -45,11 +46,6 @@ public:
 	bool shouldClose();
 
 	void onDestroy();
-#ifdef _WIN32
-	void setText(LPCWSTR text);
-#elif defined __linux__
-	void setText(const char* t);
-#endif
 };
 
 #endif

@@ -12,6 +12,7 @@ This is the window class definition file.
 #include <cstring>
 #include <stdio.h>
 
+
 ViWindow* window = nullptr;
 bool altDown = false;
 
@@ -43,9 +44,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 		altDown = true;
 	case WM_KEYDOWN:
 		if (altDown && wparam == VI_A_AZERTY) window->onDestroy();
-		wchar_t buffer[50];
-		wsprintfW(buffer, L"%d", wparam);
-		window->setText(buffer);
 		break;
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);
@@ -92,19 +90,24 @@ ViErrorType ViWindow::init() {
 
 	if (!_hwnd) return VI_WINDOW_CREATION_FAILURE;
 	//SetWindowLong(_hwnd, GWL_STYLE, 0);
-
+	/*
 	int x, w, y, h;
 	y = 10; h = 20;
 	x = 10; w = 50;
 	_label = CreateWindow(L"static", L"ST_U",
 		WS_CHILD | WS_VISIBLE | WS_TABSTOP,
 		x, y, w, h,
-		_hwnd, (HMENU)(501),
+		_hwnd, nullptr,
 		(HINSTANCE)GetWindowLong(_hwnd, GWLP_HINSTANCE), NULL);
 	SetWindowText(_label, L"");
+	*/
+
+	_label1.create(10, 10, 100, 50, {_hwnd});
+	_label1.setText(L"Hello");
 
 	::ShowWindow(_hwnd, SW_SHOW);
 	::UpdateWindow(_hwnd);
+
 
 #elif defined __linux__
 	_display = XOpenDisplay(nullptr);
@@ -165,25 +168,3 @@ void ViWindow::onDestroy() {
 bool ViWindow::shouldClose() {
 	return !_active;
 }
-
-#ifdef _WIN32
-void ViWindow::setText(LPCWSTR text) {
-	SetWindowText(_label, text);
-}
-#elif defined __linux__
-void ViWindow::setText(const char* t){
-	/*XFontStruct* font = XLoadQueryFont(_display, "-schumacher-clean-medium-r-normal--16-160-75-75-c-80-iso646.1991-irv");
-	if(!font) std::cout << "failure\n";
-	
-	if(!XSetFont(_display, _labelGC, font->fid)) std::cout << "failure\n";*/
-
-	XClearWindow(_display, _label);
-
-	XDrawString ( _display,
-			_label,
-			_labelGC,
-			0,
-			10,
-			t, strlen(t));
-}
-#endif

@@ -142,11 +142,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ViApplication.cpp" />
+    <ClCompile Include="ViLabel.cpp" />
+    <ClCompile Include="ViWidget.cpp" />
     <ClCompile Include="ViWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ViApplication.h" />
     <ClInclude Include="ViError.h" />
     <ClInclude Include="ViKeys.h" />
+    <ClInclude Include="ViLabel.h" />
+    <ClInclude Include="ViWidget.h" />
     <ClInclude Include="ViWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

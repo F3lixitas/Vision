@@ -1,4 +1,2 @@
 ﻿  ViWindow.cpp
-G:\code\Vision\Vision\ViWindow.cpp(79,1): warning C4312: 'cast de type' : la conversion de 'LONG' en 'HINSTANCE' d'une taille supérieure
-  LINK : G:\code\Vision\x64\Debug\Vision.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
   Vision.vcxproj -> G:\code\Vision\x64\Debug\Vision.exe
