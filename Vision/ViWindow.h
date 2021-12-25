@@ -35,7 +35,9 @@ public:
 	bool shouldClose();
 
 	void onDestroy();
+#ifdef _WIN32
 	void setText(LPCWSTR text);
+#endif
 };
 
 #endif

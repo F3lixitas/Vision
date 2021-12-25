@@ -108,6 +108,8 @@ bool ViWindow::shouldClose() {
 	return !_active;
 }
 
+#ifdef _WIN32
 void ViWindow::setText(LPCWSTR text) {
 	SetWindowText(_label, text);
 }
+#endif

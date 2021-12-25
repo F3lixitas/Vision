@@ -18,7 +18,9 @@ int main() {
 
 	while (!win.shouldClose()) {
 		win.proc();
+#ifdef _WIN32
 		Sleep(1);
+#endif
 	}
 	
 	
