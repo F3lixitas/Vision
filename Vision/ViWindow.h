@@ -36,8 +36,6 @@ public:
 
 	void onDestroy();
 	void setText(LPCWSTR text);
-
-
 };
 
 #endif
