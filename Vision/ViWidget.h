@@ -33,6 +33,7 @@ protected:
 	WindowHandler _widget;
 public:
 	virtual void create(int x, int y, int width, int height, WindowHandler parent);
+	void clear();
 	void show(bool t);
 
 	~ViWidget();

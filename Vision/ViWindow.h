@@ -44,6 +44,7 @@ public:
 
 	void proc();
 	bool shouldClose();
+	void setText(std::wstring str);
 
 	void onDestroy();
 };

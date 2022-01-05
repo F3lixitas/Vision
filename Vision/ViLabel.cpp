@@ -27,28 +27,12 @@ void ViLabel::setText(std::wstring text) {
 	XSetFont(_widget.display, _widget.gc, font->fid);
 
 	XChar2b* a = new XChar2b[text.length()];
-	memcpy(a, text.data(), text.length());
+	for(int i = 0; i < text.length(); i++){
+		a[i].byte2 = text[i] & 0x00ff;
+		a[i].byte1 = (text[i] & 0xff00) >> 8;
+	}
 
-	XTextItem16 text16 = {a, text.length(), 0};
-
-	/*char* name = "fixed";
-	char* fontName = (char *)malloc(strlen("fixed") + 3);
-	memccpy(fontName, name, 0, strlen(name));
-	char **missingChars;
-	int missingCharsCount;
-	char *stringReturn;
-	XFontSet fontSet = XCreateFontSet(_widget.display, fontName, &missingChars, &missingCharsCount, &stringReturn);*/
-
-	XDrawText16(_widget.display, _widget.window, _widget.gc, 0, 10, &text16, text.length());
-
+	XDrawString16(_widget.display, _widget.window, _widget.gc, 0, 10, a, text.length());
 	delete[] a;
-
-	/*XwcDrawString(_widget.display,
-		_widget.window,
-		fontSet,
-		_widget.gc,
-		0,
-		10,
-		text.data(), text.length());*/
 #endif
 }

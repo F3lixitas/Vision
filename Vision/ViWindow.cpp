@@ -55,6 +55,7 @@ void WndProc(XEvent event){
 	case KeyPress:
 		if (altDown && event.xkey.keycode == VI_A_AZERTY) window->onDestroy();
 		if (event.xkey.keycode == VI_ALT_AZERTY) altDown = true;
+		window->setText(std::to_wstring(event.xkey.keycode));
 		break;
 	case KeyRelease:
 		if (event.xkey.keycode == VI_ALT_AZERTY) altDown = false;
@@ -122,6 +123,11 @@ ViErrorType ViWindow::init() {
 	return VI_SUCCESS;
 }
 
+void ViWindow::setText(std::wstring str){
+	_label1.clear();
+	_label1.setText(str);
+}
+
 void ViWindow::proc() {
 #ifdef _WIN32
 	altDown = false;
@@ -133,7 +139,6 @@ void ViWindow::proc() {
 #elif defined __linux__
 	XNextEvent(_display, &_event);
 	WndProc(_event);
-	_label1.setText(L"Hello");
 	
 #endif
 }

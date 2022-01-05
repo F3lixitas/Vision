@@ -43,6 +43,14 @@ void ViWidget::show(bool t) {
 #endif
 }
 
+void ViWidget::clear(){
+#ifdef _WIN32
+	
+#elif defined __linux__
+	XClearWindow(_widget.display, _widget.window);
+#endif
+}
+
 ViWidget::~ViWidget(){
 #ifdef __linux__
 	XDestroyWindow(_widget.display, _widget.window);
