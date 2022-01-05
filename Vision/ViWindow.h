@@ -29,7 +29,7 @@ private:
 	HWND _hwnd;
 #elif defined __linux__
 	Display* 	_display;
-	Window		_window, _label;
+	Window		_window;
 	GC			_windowGC, _labelGC;
 	Screen*		_screen;
 	int 		_screenId;

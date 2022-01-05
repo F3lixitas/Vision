@@ -17,6 +17,7 @@ This file declares the label class, a simple text container.
 class ViLabel : public ViWidget {
 
 public:
+	void create(int x, int y, int width, int height, WindowHandler parent);
 	void setText(std::wstring text);
 };
 

@@ -18,6 +18,7 @@ void ViWidget::create(int x, int y, int width, int height, WindowHandler parent)
 		parent.window, nullptr,
 		(HINSTANCE)GetWindowLong(parent.window, GWLP_HINSTANCE), NULL);
 #elif defined __linux__
+	_widget.display = parent.display;
 	int screenId = DefaultScreen(parent.display);
 	_widget.window = XCreateSimpleWindow(parent.display, parent.window,
 		x, y, width, height, 0,
@@ -39,5 +40,11 @@ void ViWidget::show(bool t) {
 		::ShowWindow(_widget.window, SW_HIDE);
 #elif defined __linux__
 	
+#endif
+}
+
+ViWidget::~ViWidget(){
+#ifdef __linux__
+	XDestroyWindow(_widget.display, _widget.window);
 #endif
 }

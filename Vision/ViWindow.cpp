@@ -24,7 +24,6 @@ ViWindow::~ViWindow() {
 #ifdef _WIN32
 	if(_hwnd) ::DestroyWindow(_hwnd);
 #elif defined __linux__
-	XDestroyWindow(_display, _label);
 	XDestroyWindow(_display, _window);
 	XFree(_screen);
 	XFlush(_display);
@@ -56,10 +55,6 @@ void WndProc(XEvent event){
 	case KeyPress:
 		if (altDown && event.xkey.keycode == VI_A_AZERTY) window->onDestroy();
 		if (event.xkey.keycode == VI_ALT_AZERTY) altDown = true;
-		char buffer[50];
-		sprintf(buffer, "%d", event.xkey.keycode);
-
-		window->setText(buffer);
 		break;
 	case KeyRelease:
 		if (event.xkey.keycode == VI_ALT_AZERTY) altDown = false;
@@ -90,17 +85,6 @@ ViErrorType ViWindow::init() {
 
 	if (!_hwnd) return VI_WINDOW_CREATION_FAILURE;
 	//SetWindowLong(_hwnd, GWL_STYLE, 0);
-	/*
-	int x, w, y, h;
-	y = 10; h = 20;
-	x = 10; w = 50;
-	_label = CreateWindow(L"static", L"ST_U",
-		WS_CHILD | WS_VISIBLE | WS_TABSTOP,
-		x, y, w, h,
-		_hwnd, nullptr,
-		(HINSTANCE)GetWindowLong(_hwnd, GWLP_HINSTANCE), NULL);
-	SetWindowText(_label, L"");
-	*/
 
 	_label1.create(10, 10, 100, 50, {_hwnd});
 	_label1.setText(L"Hello");
@@ -126,18 +110,9 @@ ViErrorType ViWindow::init() {
 	
 
 	/*Simple label creation*/
-	_label = XCreateSimpleWindow(_display, _window, 
-		10, 10, 20, 50, 0, 
-		BlackPixel(_display, _screenId), WhitePixel(_display, _screenId));
-	
-
-	XSelectInput(_display, _label, KeyPressMask|KeyReleaseMask|StructureNotifyMask|ExposureMask);
-
-	_labelGC =  XCreateGC(_display, _label, 0, nullptr);
-	XSetBackground(_display, _labelGC, BlackPixel(_display, _screenId));
+	_label1.create(10, 10, 100, 50, {_window, _display});
 	
 	XMapRaised(_display, _window);
-	XMapWindow(_display, _label);
 	
 #endif
 
@@ -158,6 +133,8 @@ void ViWindow::proc() {
 #elif defined __linux__
 	XNextEvent(_display, &_event);
 	WndProc(_event);
+	_label1.setText(L"Hello");
+	
 #endif
 }
 
