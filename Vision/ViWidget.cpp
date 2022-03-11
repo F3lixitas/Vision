@@ -21,7 +21,7 @@ void ViWidget::create(int x, int y, int width, int height, WindowHandler parent)
 	_widget.display = parent.display;
 	int screenId = DefaultScreen(parent.display);
 	_widget.window = XCreateSimpleWindow(parent.display, parent.window,
-		x, y, width, height, 0,
+		x, y, width, height, 1,
 		BlackPixel(parent.display, screenId), WhitePixel(parent.display, screenId));
 	XSelectInput(_widget.display, _widget.window, KeyPressMask | KeyReleaseMask | StructureNotifyMask | ExposureMask);
 	XMapWindow(_widget.display, _widget.window);
